@@ -1,23 +1,20 @@
 // const { useState, useEffect } = React
 // const { useSelector, useDispatch } = ReactRedux
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 
-import { loadToys, removeToy, removeToyOptimistic, saveToy, setFilterBy } from '../store/actions/toy.actions.js'
-// import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
+import { loadToys, removeToyOptimistic, saveToy, setFilterBy } from '../store/actions/toy.actions.js'
 import { showSuccessMsgRedux, showErrorMsgRedux } from '../store/actions/app.actions.js'
 
 import { toyService } from '../services/toy.service.js'
 
 import { ToyFilter } from '../cmps/ToyFilter.jsx'
 import { ToyList } from '../cmps/ToyList.jsx'
-import { ADD_TOY_TO_CART } from '../store/reducers/toy.reducer.js'
+import { Link } from 'react-router-dom'
 
-export function toyIndex() {
-    const dispatch = useDispatch()
+export function ToyIndex() {
     const toys = useSelector(storeState => storeState.toyModule.toys)
-    const cart = useSelector(storeState => storeState.toyModule.shoppingCart)
     const isLoading = useSelector(storeState => storeState.toyModule.isLoading)
     const filterBy = useSelector(storeState => storeState.toyModule.filterBy)
 
@@ -52,47 +49,36 @@ export function toyIndex() {
             })
     }
 
-    function onEditToy(toy) {
-        const price = +prompt('New price?')
-        const toyToSave = { ...toy, price }
+    // function onEditToy(toy) {
+    //     const price = +prompt('New price?')
+    //     const toyToSave = { ...toy, price }
 
-        saveToy(toyToSave)
-            .then((savedToy) => {
-                showSuccessMsgRedux(`toy updated to price: $${savedToy.price}`)
-            })
-            .catch(err => {
-                console.log('Cannot update toy', err)
-                showErrorMsgRedux('Cannot update toy')
-            })
-    }
+    //     saveToy(toyToSave)
+    //         .then((savedToy) => {
+    //             showSuccessMsgRedux(`toy updated to price: $${savedToy.price}`)
+    //         })
+    //         .catch(err => {
+    //             console.log('Cannot update toy', err)
+    //             showErrorMsgRedux('Cannot update toy')
+    //         })
+    // }
 
     function onSetFilter(filterBy) {
-        console.log('filterBy:', filterBy)
         setFilterBy(filterBy)
-    }
-
-    function addToCart(toy) {
-        console.log('toy:', toy)
-        console.log(`Adding ${toy.name} to cart`)
-        dispatch({ type: ADD_TOY_TO_CART, toy })
-        showSuccessMsgRedux('Added to cart')
     }
 
     return (
         <div>
             <h3>toys App</h3>
             <main>
-                <button onClick={onAddToy}>Add toy ⛐</button>
+                <Link to="/toy/edit"><button>Add Toy</button></Link>
                 <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} />
+                {isLoading && <div>Loading...</div>}
                 {!isLoading && <ToyList
                     toys={toys}
-                    onEditToy={onEditToy}
+                    // onEditToy={onEditToy}
                     onRemoveToy={onRemoveToy}
-                    addToCart={addToCart}
                 />}
-                {isLoading && <div>Loading...</div>}
-                <hr />
-                <pre>{JSON.stringify(cart, null, 2)}</pre>
             </main>
         </div>
     )

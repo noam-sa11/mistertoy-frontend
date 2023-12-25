@@ -4,7 +4,7 @@ import { toyService } from "../services/toy.service.js"
 import { showSuccessMsgRedux, showErrorMsgRedux } from '../store/actions/app.actions.js'
 import { useNavigate, useParams } from "react-router-dom"
 
-export function toyDetails() {
+export function ToyDetails() {
     const [toy, setToy] = useState(null)
     const { toyId } = useParams()
     const navigate = useNavigate()

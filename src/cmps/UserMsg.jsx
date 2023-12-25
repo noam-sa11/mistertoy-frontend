@@ -9,7 +9,6 @@ export function UserMsg() {
     const timeoutIdRef = useRef()
 
     useEffect(() => {
-        console.log('timeoutIdRef.current', timeoutIdRef.current)
         if (!msg) return
         if (timeoutIdRef.current) {
             clearTimeout(timeoutIdRef.current)
