@@ -1,5 +1,5 @@
 // const { useState, useEffect, useRef } = React
-
+import Select from 'react-select'
 import { useRef, useState } from "react"
 import { utilService } from "../services/util.service.js"
 import { useEffectUpdate } from "./customHooks/useEffectUpdate.js"
@@ -19,6 +19,9 @@ export function ToyFilter({ filterBy, onSetFilter }) {
         value = type === 'number' ? +value : value
         setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
     }
+
+    const labelOptions = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle',
+        'Outdoor', 'Battery Powered']
 
     return (
         <section className="toy-filter full main-layout">
@@ -53,6 +56,18 @@ export function ToyFilter({ filterBy, onSetFilter }) {
                     <option value="true">In Stock</option>
                     <option value="false">Out of Stock</option>
                 </select>
+
+                <label htmlFor="labels">Toy Labels:</label>
+                <Select
+                    id="labels"
+                    name="labels"
+                    isMulti
+                    options={labelOptions.map(label => ({ value: label, label: label }))}
+                    value={filterByToEdit.labels || []}
+                    onChange={(selectedLabels) =>
+                        setFilterByToEdit((prevFilter) => ({ ...prevFilter, labels: selectedLabels }))
+                    }
+                />
 
                 <label htmlFor="sortBy">Sort By:</label>
                 <select

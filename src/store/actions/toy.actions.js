@@ -19,7 +19,7 @@ export function loadToys() {
 }
 
 export function loadToy(toyId) {
-    return toyService.getById(toyId)
+    return toyService.getToyById(toyId)
         .then(toy => toy)
         .catch((err) => {
             console.log('err', err)

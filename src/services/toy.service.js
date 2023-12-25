@@ -17,7 +17,10 @@ export const toyService = {
 
 _createDemoData()
 
-function query(filterBy = { name: '', inStock: 'all', maxPrice: Infinity, pageIdx: 0, sortBy: "name" }) {
+function query(filterBy = {
+    name: '', inStock: 'all', maxPrice: Infinity,
+    pageIdx: 0, labels: [], sortBy: "name"
+}) {
     console.log('filterBy:', filterBy)
     const { sortBy } = filterBy
     return storageService.query(TOYS_KEY)
@@ -36,6 +39,11 @@ function query(filterBy = { name: '', inStock: 'all', maxPrice: Infinity, pageId
             if (filterBy.maxPrice) {
                 toys = toys.filter((toy) => (toy.price <= filterBy.maxPrice))
 
+            }
+            if (filterBy.labels.length > 0) {
+                toys = toys.filter(toy => {
+                    return filterBy.labels.some(label => toy.labels.includes(label.value));
+                })
             }
 
             return _getSortedtoys(sortBy, toys)
@@ -79,7 +87,7 @@ export function getTotaltoys() {
 }
 
 function getDefaultFilter() {
-    return { name: '', price: Infinity, inStock: 'all' }
+    return { name: '', maxPrice: Infinity, inStock: 'all', labels: [] }
 }
 
 function getEmptyToy() {
@@ -87,8 +95,8 @@ function getEmptyToy() {
         'Outdoor', 'Battery Powered']
 
     return {
-        name: 'New Toy',
-        price: utilService.getRandomIntInclusive(15, 200),
+        name: '',
+        price: '',
         labels: labels.splice(utilService.getRandomIntInclusive(0, labels.length - 4), 3),
         inStock: true
     }
@@ -122,36 +130,42 @@ function _createDemoData() {
 
         const demoToys = [
             {
+                _id: 't101',
                 name: 'Talking Doll',
                 price: 123,
                 labels: ['Doll', 'Battery Powered', 'Baby'],
                 inStock: true,
             },
             {
+                _id: 't102',
                 name: 'Car',
                 price: 43,
                 labels: ['Car', 'Battery Powered', 'On wheels'],
                 inStock: false,
             },
             {
+                _id: 't103',
                 name: 'Puzzle',
                 price: 59,
                 labels: ['Puzzle', 'Art', 'Box game'],
                 inStock: true,
             },
             {
+                _id: 't104',
                 name: 'Baby Doll',
                 price: 39,
                 labels: ['Doll', 'Battery Powered', 'Baby'],
                 inStock: false,
             },
             {
+                _id: 't105',
                 name: 'Spiderman',
                 price: 25,
                 labels: ['Doll'],
                 inStock: false,
             },
             {
+                _id: 't106',
                 name: 'Truck',
                 price: 79,
                 labels: ['Outdoor', 'Battery Powered', 'On wheels'],

@@ -2,7 +2,7 @@ import { ToyPreview } from "./ToyPreview.jsx";
 import PropTypes from 'prop-types'
 
 export function ToyList({ toys, onRemoveToy, onEditToy, addToCart }) {
-
+    if (!toys.length) return <div>No Toys To Display 🧸</div>
     return (
         <ul className="toy-list">
             {toys.map(toy =>
