@@ -68,19 +68,16 @@ export function ToyIndex() {
     }
 
     return (
-        <div>
-            <h3>toys App</h3>
-            <main>
-                <Link to="/toy/edit"><button>Add Toy</button></Link>
-                <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} />
-                {isLoading && <div>Loading...</div>}
-                {!isLoading && <ToyList
-                    toys={toys}
-                    // onEditToy={onEditToy}
-                    onRemoveToy={onRemoveToy}
-                />}
-            </main>
-        </div>
+        <main className='grid'>
+            <Link to="/toy/edit" className='self-center'><button >Add Toy</button></Link>
+            <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} />
+            {isLoading && <div>Loading...</div>}
+            {!isLoading && <ToyList
+                toys={toys}
+                // onEditToy={onEditToy}
+                onRemoveToy={onRemoveToy}
+            />}
+        </main>
     )
 
 }

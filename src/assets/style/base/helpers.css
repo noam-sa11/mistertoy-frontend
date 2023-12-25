@@ -1,23 +1,39 @@
 /* flex helpers */
 
 .flex {
-  display: flex;
+    display: flex;
 }
 
-.flex.flex-column{
+.flex.flex-column {
     flex-direction: column;
 }
 
-.flex.justify-center{
+.flex.justify-center {
     justify-content: center;
 }
 
-.flex.justify-between{
+.flex.justify-between {
     justify-content: space-between;
 }
 
-.flex.align-center{
+.flex.align-center {
     align-items: center;
+}
+
+.grid {
+    display: grid;
+}
+
+.grid.justify-center {
+    justify-content: center;
+}
+
+.grid.align-center {
+    align-items: center;
+}
+
+.self-center {
+    justify-self: center;
 }
 
 /* text helpers */
