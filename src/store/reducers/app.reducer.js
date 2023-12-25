@@ -6,7 +6,6 @@ const initialState = {
 export function appReducer(state = initialState, action) {
     switch (action.type) {
         case SET_MSG:
-            console.log('Hi from app reducer...')
             return {
                 ...state, msg: action.msg
             }

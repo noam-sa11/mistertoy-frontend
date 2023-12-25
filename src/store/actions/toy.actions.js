@@ -18,11 +18,20 @@ export function loadToys() {
         })
 }
 
+export function loadToy(toyId) {
+    return toyService.getById(toyId)
+        .then(toy => toy)
+        .catch((err) => {
+            console.log('err', err)
+            throw err
+        })
+}
+
 export function removeToyOptimistic(toyId) {
     store.dispatch({ type: REMOVE_TOY, toyId })
     store.dispatch({ type: SET_IS_LOADING, isLoading: true })
 
-    return toyService.remove(toyId)
+    return toyService.removeToy(toyId)
         .catch(err => {
             store.dispatch({ type: TOY_UNDO })
             console.log('toy action -> Cannot remove toy', err)
