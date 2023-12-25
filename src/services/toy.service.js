@@ -1,8 +1,9 @@
-const TOYS_KEY = 'mytoys'
+const TOYS_KEY = 'toysDB'
 // const PAGE_SIZE = 8
 
 import { storageService } from './async-storage.service.js'
 import { userService } from './user.service.js'
+import { utilService } from './util.service.js'
 
 export const toyService = {
     query,
@@ -11,11 +12,13 @@ export const toyService = {
     getToyById,
     debounce,
     getDefaultFilter,
+    getEmptyToy,
 }
 
 _createDemoData()
 
-function query(filterBy = { name: '', inStock: 'all', price: Infinity, pageIdx: 0, sortBy: "name" }) {
+function query(filterBy = { name: '', inStock: 'all', maxPrice: Infinity, pageIdx: 0, sortBy: "name" }) {
+    console.log('filterBy:', filterBy)
     const { sortBy } = filterBy
     return storageService.query(TOYS_KEY)
         .then(toys => {
@@ -30,31 +33,13 @@ function query(filterBy = { name: '', inStock: 'all', price: Infinity, pageIdx: 
             if (filterBy.inStock !== 'all') {
                 toys = toys.filter((toy) => (filterBy.inStock === 'true' ? toy.inStock : !toy.inStock))
             }
+            if (filterBy.maxPrice) {
+                toys = toys.filter((toy) => (toy.price <= filterBy.maxPrice))
+
+            }
 
             return _getSortedtoys(sortBy, toys)
         })
-}
-
-function _getSortedtoys(sortBy, toys) {
-    let sortedtoys
-    if (sortBy === 'name') {
-        sortedtoys = toys.sort((a, b) => {
-            const toyA = a.name.toUpperCase()
-            const toyB = b.name.toUpperCase()
-            if (toyA < toyB) {
-                return -1;
-            }
-            if (toyA > toyB) {
-                return 1;
-            }
-            return 0;
-        });
-    } else if (sortBy === 'price') {
-        sortedtoys = toys.sort((a, b) => a.price - b.price)
-    } else {
-        sortedtoys = toys.sort((a, b) => a.createdAt - b.createdAt)
-    }
-    return sortedtoys
 }
 
 function getToyById(id) {
@@ -81,7 +66,7 @@ function debounce(func, wait) {
         const later = () => {
             timeout = null
             func(...args)
-        };
+        }
         clearTimeout(timeout)
         timeout = setTimeout(later, wait)
     }
@@ -93,19 +78,87 @@ export function getTotaltoys() {
 
 }
 
-function _createDemoData() {
-    const demoToys = [
-        { name: 'Toy1', price: 10, inStock: true },
-        { name: 'Toy2', price: 20, inStock: false },
-        { name: 'Toy3', price: 15, inStock: true },
-        // Add more dummy data as needed
-    ];
-
-    demoToys.forEach((toy) => {
-        save(toy)
-    })
-}
-
 function getDefaultFilter() {
     return { name: '', price: Infinity, inStock: 'all' }
+}
+
+function getEmptyToy() {
+    const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle',
+        'Outdoor', 'Battery Powered']
+
+    return {
+        name: 'New Toy',
+        price: utilService.getRandomIntInclusive(15, 200),
+        labels: labels.splice(utilService.getRandomIntInclusive(0, labels.length - 4), 3),
+        inStock: true
+    }
+}
+
+function _getSortedtoys(sortBy, toys) {
+    let sortedtoys
+    if (sortBy === 'name') {
+        sortedtoys = toys.sort((a, b) => {
+            const toyA = a.name.toUpperCase()
+            const toyB = b.name.toUpperCase()
+            if (toyA < toyB) {
+                return -1;
+            }
+            if (toyA > toyB) {
+                return 1;
+            }
+            return 0;
+        });
+    } else if (sortBy === 'price') {
+        sortedtoys = toys.sort((a, b) => a.price - b.price)
+    } else {
+        sortedtoys = toys.sort((a, b) => a.createdAt - b.createdAt)
+    }
+    return sortedtoys
+}
+
+function _createDemoData() {
+    const toysFromStorage = JSON.parse(localStorage.getItem(TOYS_KEY))
+    if (!toysFromStorage || !toysFromStorage.length) {
+
+        const demoToys = [
+            {
+                name: 'Talking Doll',
+                price: 123,
+                labels: ['Doll', 'Battery Powered', 'Baby'],
+                inStock: true,
+            },
+            {
+                name: 'Car',
+                price: 43,
+                labels: ['Car', 'Battery Powered', 'On wheels'],
+                inStock: false,
+            },
+            {
+                name: 'Puzzle',
+                price: 59,
+                labels: ['Puzzle', 'Art', 'Box game'],
+                inStock: true,
+            },
+            {
+                name: 'Baby Doll',
+                price: 39,
+                labels: ['Doll', 'Battery Powered', 'Baby'],
+                inStock: false,
+            },
+            {
+                name: 'Spiderman',
+                price: 25,
+                labels: ['Doll'],
+                inStock: false,
+            },
+            {
+                name: 'Truck',
+                price: 79,
+                labels: ['Outdoor', 'Battery Powered', 'On wheels'],
+                inStock: true,
+            },
+        ]
+        localStorage.setItem(TOYS_KEY, JSON.stringify(demoToys))
+
+    }
 }

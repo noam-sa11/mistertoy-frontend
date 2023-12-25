@@ -27,9 +27,9 @@ export function ToyFilter({ filterBy, onSetFilter }) {
                 <label htmlFor="name">Name:</label>
                 <input type="text"
                     id="name"
-                    name="txt"
+                    name="name"
                     placeholder="By Name"
-                    value={filterByToEdit.txt}
+                    value={filterByToEdit.name}
                     onChange={handleChange}
                 />
 
@@ -42,14 +42,29 @@ export function ToyFilter({ filterBy, onSetFilter }) {
                     onChange={handleChange}
                 />
 
-                {/* <label htmlFor="inStock">In Stock?</label>
-                <input type="number"
+                <label htmlFor="inStock">In Stock:</label>
+                <select
                     id="inStock"
                     name="inStock"
-                    placeholder="By max price"
-                    value={filterByToEdit.inStock || ''}
+                    value={filterByToEdit.inStock || 'all'}
                     onChange={handleChange}
-                /> */}
+                >
+                    <option value="all">All</option>
+                    <option value="true">In Stock</option>
+                    <option value="false">Out of Stock</option>
+                </select>
+
+                <label htmlFor="sortBy">Sort By:</label>
+                <select
+                    id="sortBy"
+                    name="sortBy"
+                    value={filterByToEdit.sortBy || 'name'}
+                    onChange={handleChange}
+                >
+                    <option value="name">Name</option>
+                    <option value="price">Price</option>
+                    <option value="createdAt">Created</option>
+                </select>
             </form>
         </section>
     )
