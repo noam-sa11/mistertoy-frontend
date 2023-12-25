@@ -17,7 +17,7 @@ export function ToyEdit() {
 
     function _loadToy() {
         loadToy(toyId)
-            .then(setToyToEdit)
+            .then(toy => setToyToEdit(toy))
             .catch((err) => {
                 console.log('Had issued in toy edit:', err)
                 navigate('/toy')
@@ -49,7 +49,7 @@ export function ToyEdit() {
             <h2>{toyToEdit._id ? 'Edit' : 'Add'} Toy</h2>
 
             <form onSubmit={onSaveToy}>
-                <label htmlFor="txt">Toy Text:</label>
+                <label htmlFor="txt">Toy Name:</label>
                 <input
                     onChange={handleChange}
                     placeholder='New toy'
@@ -57,6 +57,15 @@ export function ToyEdit() {
                     type="text"
                     name="name"
                     id="txt"
+                />
+                <label htmlFor="price">Toy Price:</label>
+                <input
+                    onChange={handleChange}
+                    placeholder='Price'
+                    value={toyToEdit.price}
+                    type="number"
+                    name="price"
+                    id="price"
                 />
 
                 <button>{toyToEdit._id ? 'Edit' : 'Add'} Toy</button>
