@@ -1,4 +1,6 @@
 
+import * as yup from 'yup'
+
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { showErrorMsgRedux, showSuccessMsgRedux } from '../store/actions/app.actions.js'
@@ -33,17 +35,28 @@ export function ToyEdit() {
 
     function onSaveToy(ev) {
         ev.preventDefault()
-        saveToy(toyToEdit)
+        const schema = yup.object().shape({
+            name: yup.string().required('Toy Name is required'),
+            price: yup.number().required('Toy Price is required').positive('Price must be positive'),
+        })
+        schema.validate(toyToEdit, { abortEarly: false })
             .then(() => {
-                showSuccessMsgRedux('Toy has been saved!')
-                navigate('/toy')
+                saveToy(toyToEdit)
+                    .then(() => {
+                        showSuccessMsgRedux('Toy has been saved!')
+                        navigate('/toy')
+                    })
+                    .catch((err) => {
+                        console.log('Cannot add toy', err)
+                        showErrorMsgRedux('Cannot add toy')
+                    })
             })
-            .catch((err) => {
-                console.log('Cannot add toy', err)
-                showErrorMsgRedux('Cannot add toy')
+            .catch((validationErrors) => {
+                showErrorMsgRedux('Validations errors')
+                console.error(validationErrors)
             })
-    }
 
+    }
     return (
         <section className="toy-edit">
             <h2>{toyToEdit._id ? 'Edit' : 'Add'} Toy</h2>
