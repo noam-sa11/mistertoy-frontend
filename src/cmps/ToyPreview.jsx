@@ -6,7 +6,7 @@ export function ToyPreview({ toy, onRemoveToy }) {
         <article>
             <Link to={`/toy/${toy._id}`} >
                 <h4>{toy.name}</h4>
-                <h1>🧸</h1>
+                <img src="./public/teddy.png" alt="" />
             </Link>
             <p>Price: <span>${toy.price.toLocaleString()}</span></p>
             <p className={toy.inStock ? 'in-stock' : 'out-of-stock'}>{toy.inStock ? 'In Stock' : 'Out of Stock'}</p>
