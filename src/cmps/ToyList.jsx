@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 export function ToyList({ toys, onRemoveToy, onEditToy, addToCart }) {
     if (!toys.length) return <div>No Toys To Display 🧸</div>
     return (
-        <ul className="toy-list">
+        <ul className="toy-list clean-list">
             {toys.map(toy =>
                 <li key={toy._id} className="toy-preview">
                     <ToyPreview
