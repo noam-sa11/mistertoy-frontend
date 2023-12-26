@@ -24,7 +24,7 @@ function query(filterBy = {}) {
 }
 
 function getToyById(toyId) {
-    return httpService.get(BASE_URL + toyId, toyId)
+    return httpService.get(BASE_URL + toyId)
 }
 
 function save(toy) {
@@ -37,7 +37,7 @@ function save(toy) {
 }
 
 function removeToy(toyId) {
-    return httpService.delete(BASE_URL + toyId, toyId)
+    return httpService.delete(BASE_URL + toyId)
 }
 
 export function getTotaltoys() {
