@@ -59,13 +59,10 @@ export function toyReducer(state = initialState, action = {}) {
             toyShoppingCart = [...state.toyShoppingCart, action.toy]
             return { ...state, toyShoppingCart }
 
-        case ADD_TOY_TO_CART:
-            toyShoppingCart = [...state.toyShoppingCart, action.toy]
-            return { ...state, toyShoppingCart }
-
         case REMOVE_TOY_FROM_CART:
             toyShoppingCart = state.toyShoppingCart.filter(toy => toy._id !== action.toyId)
             return { ...state, toyShoppingCart }
+
         case CLEAR_CART:
             return { ...state, toyShoppingCart: [] }
 
