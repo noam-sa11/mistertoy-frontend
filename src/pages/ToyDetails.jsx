@@ -1,5 +1,5 @@
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { toyService } from "../services/toy.service.js"
 import { showErrorMsgRedux } from '../store/actions/app.actions.js'
 import { useNavigate, useParams } from "react-router-dom"
@@ -14,7 +14,7 @@ export function ToyDetails() {
     }, [toyId])
 
     function loadToy() {
-        toyService.getById(toyId)
+        toyService.getToyById(toyId)
             .then((toy) => setToy(toy))
             .catch((err) => {
                 console.log('Had issues in toy details', err)
@@ -27,7 +27,10 @@ export function ToyDetails() {
     return (
         <section className="toy-details">
             <h1>Toy Name : {toy.name}</h1>
-            <h5>Price: ${toy.price}</h5>
+            <h2>Price: ${toy.price}</h2>
+            <h2>labels: <span>{toy.labels.join(' | ')}</span></h2>
+            <h2>Created at: <span>{toy.createdAt}</span></h2>
+            <h3>In Stock: <span>{(toy.inStock) ? 'yes' : 'no'}</span></h3>
             <p>⛐</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi voluptas cumque tempore, aperiam sed dolorum rem! Nemo quidem, placeat perferendis tempora aspernatur sit, explicabo veritatis corrupti perspiciatis repellat, enim quibusdam!</p>
         </section>

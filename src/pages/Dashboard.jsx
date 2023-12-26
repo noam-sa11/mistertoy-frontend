@@ -35,7 +35,9 @@ export function Dashboard() {
             return
         }
 
-        const labels = Array.from(new Set(toysData.flatMap((toy) => toy.labels.map(String))))
+        const labels = Array.from(new Set(toysData.flatMap((toy) => {
+            return toy.labels.map(String)
+        })))
 
         const pricesData = {
             labels,
@@ -111,13 +113,13 @@ export function Dashboard() {
         <div>
             <h2>Dashboard</h2>
             <div>
-                <div style={{ width: '100%' }}>
+                <div style={{ width: '50%' }}>
                     <Bar data={pricesChartData} />
                 </div>
-                <div style={{ width: '100%' }}>
+                <div style={{ width: '50%' }}>
                     <Bar data={inventoryChartData} />
                 </div>
-                <div style={{ width: '100%' }}>
+                <div style={{ width: '50%' }}>
                     <Line data={lineChartData} />
                 </div>
             </div>

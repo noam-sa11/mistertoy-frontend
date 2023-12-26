@@ -55,13 +55,10 @@ function getDefaultFilter() {
 }
 
 function getEmptyToy() {
-    const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle',
-        'Outdoor', 'Battery Powered']
-
     return {
         name: '',
         price: '',
-        labels: labels.splice(utilService.getRandomIntInclusive(0, labels.length - 4), 3),
+        labels: ['toy'],
         inStock: true
     }
 }

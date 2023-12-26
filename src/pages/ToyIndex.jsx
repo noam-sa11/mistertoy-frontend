@@ -71,9 +71,9 @@ export function ToyIndex() {
     }
 
     return (
-        <main className='grid'>
-            <Link to="/toy/edit" className='self-center'><button >Add Toy</button></Link>
+        <main className='toy-index grid'>
             <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} />
+            <Link to="/toy/edit" className='self-center'><button >Add Toy</button></Link>
 
             {isLoading && <div>Loading...</div>}
             {!isLoading && <ToyList

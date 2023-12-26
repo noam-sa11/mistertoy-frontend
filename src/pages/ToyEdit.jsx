@@ -1,5 +1,6 @@
 
 import * as yup from 'yup'
+import Select from 'react-select'
 
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
@@ -41,8 +42,10 @@ export function ToyEdit() {
         })
         schema.validate(toyToEdit, { abortEarly: false })
             .then(() => {
+                console.log('toyToEdit:', toyToEdit)
                 saveToy(toyToEdit)
-                    .then(() => {
+                    .then((savedToy) => {
+                        console.log('savedToy:', savedToy)
                         showSuccessMsgRedux('Toy has been saved!')
                         navigate('/toy')
                     })
@@ -57,10 +60,13 @@ export function ToyEdit() {
             })
 
     }
+
+    const labelOptions = toyService.getLabels()
+    console.log('toyToEdit:', toyToEdit)
     return (
         <section className="toy-edit">
             <h2>{toyToEdit._id ? 'Edit' : 'Add'} Toy</h2>
-
+            con
             <form onSubmit={onSaveToy}>
                 <label htmlFor="txt">Toy Name:</label>
                 <input
@@ -80,6 +86,17 @@ export function ToyEdit() {
                     name="price"
                     id="price"
                 />
+                {/* <label htmlFor="labels">Toy Labels:</label>
+                <Select
+                    id="labels"
+                    name="labels"
+                    isMulti
+                    options={labelOptions.map(label => ({ value: label, label: label }))}
+                    value={toyToEdit.labels.map(label => ({ value: label, label: label })) || []}
+                    onChange={(selectedLabels) =>
+                        setToyToEdit((prevToy) => ({ ...prevToy, labels: selectedLabels }))
+                    }
+                /> */}
 
                 <button>{toyToEdit._id ? 'Edit' : 'Add'} Toy</button>
             </form>
