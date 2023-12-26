@@ -2,12 +2,14 @@
   box-sizing: border-box;
 }
 
-html {
-}
-
 body {
   margin: 0;
   color: var(--gray3);
+  height: 100vh;
+}
+
+body>div {
+  height: 100vh;
 }
 
 h1,
@@ -28,8 +30,6 @@ a {
   text-decoration: none;
   color: unset;
 }
-
-
 
 /* Dont stretch my Media */
 img,

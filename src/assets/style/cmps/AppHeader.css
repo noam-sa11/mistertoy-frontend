@@ -1,7 +1,9 @@
 .app-header {
+  grid-column: 1 / -1;
+  display: grid;
   background-color: var(--clr1);
   color: var(--clr1bg);
-  padding: 1em;
+  padding: 1em 0;
 }
 
 .app-nav {

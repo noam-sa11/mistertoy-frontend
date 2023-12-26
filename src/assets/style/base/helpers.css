@@ -20,6 +20,10 @@
     align-items: center;
 }
 
+.flex.space-between {
+    justify-content: space-between;
+}
+
 .grid {
     display: grid;
 }
@@ -48,26 +52,4 @@
     padding: 0;
     margin: 0;
     list-style-type: none;
-}
-
-/* font awsome */
-
-.fa {
-    font-family: fa;
-}
-
-.fa.fa-facebook::before {
-    content: "\f39e";
-}
-
-.fa.fa-twitter::before {
-    content: "\f099";
-}
-
-.fa.fa-dribbble::before {
-    content: "\f17d";
-}
-
-.fa.fa-behance::before {
-    content: "\f1b4";
 }
