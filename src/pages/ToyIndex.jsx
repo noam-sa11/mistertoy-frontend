@@ -20,6 +20,9 @@ export function ToyIndex() {
 
     useEffect(() => {
         loadToys()
+            .then(() => {
+                showSuccessMsgRedux('Toys loaded successfully')
+            })
             .catch(() => {
                 showErrorMsgRedux('Cannot show toys')
             })
@@ -28,7 +31,7 @@ export function ToyIndex() {
     function onRemoveToy(toyId) {
         removeToyOptimistic(toyId)
             .then(() => {
-                showSuccessMsgRedux('toy removed')
+                showSuccessMsgRedux('Toy removed successfully')
             })
             .catch(err => {
                 console.log('Cannot remove toy', err)
@@ -36,18 +39,18 @@ export function ToyIndex() {
             })
     }
 
-    function onAddToy() {
-        const toyToSave = toyService.getEmptyToy()
-        saveToy(toyToSave)
-            .then((savedToy) => {
-                console.log('savedtoy:', savedToy)
-                showSuccessMsgRedux(`toy added (vendor: ${savedToy.vendor})`)
-            })
-            .catch(err => {
-                console.log('Cannot add toy', err)
-                showErrorMsgRedux('Cannot add toy')
-            })
-    }
+    // function onAddToy() {
+    //     const toyToSave = toyService.getEmptyToy()
+    //     saveToy(toyToSave)
+    //         .then((savedToy) => {
+    //             console.log('savedtoy:', savedToy)
+    //             showSuccessMsgRedux(`toy added (vendor: ${savedToy.vendor})`)
+    //         })
+    //         .catch(err => {
+    //             console.log('Cannot add toy', err)
+    //             showErrorMsgRedux('Cannot add toy')
+    //         })
+    // }
 
     // function onEditToy(toy) {
     //     const price = +prompt('New price?')
@@ -71,10 +74,10 @@ export function ToyIndex() {
         <main className='grid'>
             <Link to="/toy/edit" className='self-center'><button >Add Toy</button></Link>
             <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} />
+
             {isLoading && <div>Loading...</div>}
             {!isLoading && <ToyList
                 toys={toys}
-                // onEditToy={onEditToy}
                 onRemoveToy={onRemoveToy}
             />}
         </main>

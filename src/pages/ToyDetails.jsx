@@ -1,7 +1,7 @@
 
 import { useState } from "react"
 import { toyService } from "../services/toy.service.js"
-import { showSuccessMsgRedux, showErrorMsgRedux } from '../store/actions/app.actions.js'
+import { showErrorMsgRedux } from '../store/actions/app.actions.js'
 import { useNavigate, useParams } from "react-router-dom"
 
 export function ToyDetails() {

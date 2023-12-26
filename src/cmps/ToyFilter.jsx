@@ -3,6 +3,7 @@ import Select from 'react-select'
 import { useRef, useState } from "react"
 import { utilService } from "../services/util.service.js"
 import { useEffectUpdate } from "./customHooks/useEffectUpdate.js"
+import { toyService } from '../services/toy.service.js'
 
 
 export function ToyFilter({ filterBy, onSetFilter }) {
@@ -20,8 +21,7 @@ export function ToyFilter({ filterBy, onSetFilter }) {
         setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
     }
 
-    const labelOptions = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle',
-        'Outdoor', 'Battery Powered']
+    const labelOptions = toyService.getLabels()
 
     return (
         <section className="toy-filter full main-layout">
