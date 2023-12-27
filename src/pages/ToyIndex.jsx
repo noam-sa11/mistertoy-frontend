@@ -4,14 +4,11 @@
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 
-import { loadToys, removeToyOptimistic, saveToy, setFilterBy } from '../store/actions/toy.actions.js'
+import { loadToys, removeToyOptimistic, setFilterBy } from '../store/actions/toy.actions.js'
 import { showSuccessMsgRedux, showErrorMsgRedux } from '../store/actions/app.actions.js'
-
-import { toyService } from '../services/toy.service.js'
 
 import { ToyFilter } from '../cmps/ToyFilter.jsx'
 import { ToyList } from '../cmps/ToyList.jsx'
-import { Link } from 'react-router-dom'
 
 export function ToyIndex() {
     const toys = useSelector(storeState => storeState.toyModule.toys)
@@ -73,8 +70,6 @@ export function ToyIndex() {
     return (
         <main className='toy-index grid'>
             <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} />
-            <Link to="/toy/edit" className='self-center'><button >Add Toy</button></Link>
-
             {isLoading && <div>Loading...</div>}
             {!isLoading && <ToyList
                 toys={toys}

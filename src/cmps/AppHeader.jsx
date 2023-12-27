@@ -38,17 +38,14 @@ export function AppHeader() {
     }
 
     return (
-        <header className="app-header main-layout">
-            <section className="header-container flex align-center space-between">
-                <h1>MisterToy</h1>
-                <nav className="app-nav">
-                    {/* <NavLink to="/" >Home</NavLink> */}
-                    <NavLink to="/toy" >Toys</NavLink>
-                    <NavLink to="/dashboard" >Dashboard</NavLink>
-                    <NavLink to="/about" >About</NavLink>
-                    {/* <a onClick={onToggleCart} href="#">🛒 Cart</a> */}
-                </nav>
-            </section>
+        <header className="app-header main-layout flex align-center space-between">
+            <nav className="app-nav">
+                {/* <NavLink to="/" >Home</NavLink> */}
+                <NavLink to="/toy" >Toys</NavLink>
+                <NavLink to="/dashboard" >Dashboard</NavLink>
+                <NavLink to="/about" >About</NavLink>
+                {/* <a onClick={onToggleCart} href="#">🛒 Cart</a> */}
+            </nav>
             {/* {user ? (
                 < section >
                     <span to={`/user/${user._id}`}>Hello {user.fullname}</span>

@@ -1,14 +1,20 @@
 .app-header {
   grid-column: 1 / -1;
-  display: grid;
   background-color: var(--clr1);
   color: var(--clr1bg);
   padding: 1em 0;
+  font-size: .8rem;
 }
 
 .app-nav {
+  padding-block: 0.6rem;
   display: flex;
   gap: 15px;
+  margin-inline-start: 350px;
+}
+
+.app-nav a.active {
+  color: #000;
 }
 
 @media(max-width: 720px) {

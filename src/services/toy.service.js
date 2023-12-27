@@ -14,10 +14,9 @@ export const toyService = {
     debounce,
     getDefaultFilter,
     getEmptyToy,
-    getLabels,
 }
 
-const labels = ["On wheels", "Box game", "Art", "Baby", "Doll", "Puzzle", "Outdoor", "Battery Powered"]
+// const labels = ["On wheels", "Box game", "Art", "Baby", "Doll", "Puzzle", "Outdoor", "Battery Powered"]
 
 function query(filterBy = {}) {
     return httpService.get(BASE_URL, filterBy)
@@ -38,16 +37,6 @@ function save(toy) {
 
 function removeToy(toyId) {
     return httpService.delete(BASE_URL + toyId)
-}
-
-export function getTotaltoys() {
-    const toys = localStorage.getItem(TOYS_KEY)
-    if (toys.length) return toys.length
-
-}
-
-function getLabels() {
-    return [...labels]
 }
 
 function getDefaultFilter() {

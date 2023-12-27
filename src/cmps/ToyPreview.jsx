@@ -4,21 +4,24 @@ export function ToyPreview({ toy, onRemoveToy }) {
 
     return (
         <article>
-            <Link to={`/toy/${toy._id}`} >
-                <h4>{toy.name}</h4>
-                <img src="./public/teddy.png" alt="" />
+            <Link to={`/toy/${toy._id}`} className="flex justify-center align-center">
+                <div className="img-container flex justify-center align-center">
+                    <img src="./public/teddy.png" alt="" />
+                </div>
             </Link>
-            <p>Price: <span>${toy.price.toLocaleString()}</span></p>
-            <p className={toy.inStock ? 'in-stock' : 'out-of-stock'}>{toy.inStock ? 'In Stock' : 'Out of Stock'}</p>
-            {/* <p>Owner: <span>{toy.owner && toy.owner.fullname}</span></p> */}
+            <h4>{toy.name}</h4>
             <div>
-                <button onClick={() => {
+                <button className="btn-remove" onClick={() => {
                     onRemoveToy(toy._id)
                 }}>x</button>
                 <Link to={`/toy/edit/${toy._id}`}>
-                    <button>Edit</button>
+                    <button className="btn-edit">Edit</button>
                 </Link>
             </div>
+            <section className="flex space-between align-center">
+                <span>${toy.price.toLocaleString()}</span>
+                <p className={toy.inStock ? 'in-stock' : 'out-of-stock'}>{toy.inStock ? 'In Stock' : 'Out of Stock'}</p>
+            </section>
             {/* <button className="buy" onClick={() => {
                 addToCart(toy)
             }}>Add to Cart</button> */}

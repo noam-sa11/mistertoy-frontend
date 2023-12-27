@@ -21,7 +21,7 @@ export function App() {
       <Router>
         <section className="main-layout app">
           <AppHeader />
-          <main>
+          <main className="grid">
             <Routes>
               <Route element={<HomePage />} path="/" />
               <Route element={<AboutUs />} path="/about" />

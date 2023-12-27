@@ -1,8 +1,17 @@
 .toy-preview {
+    position: relative;
     text-align: center;
-    padding: 0.3em;
+    padding: 1rem;
     flex-direction: column;
     border-radius: 1rem;
+    transition: background-color 0.3s;
+}
+
+.toy-preview .img-container {
+    height: 150px;
+    width: 150px;
+    background-color: var(--clrbg-prev);
+    border-radius: 50%;
 }
 
 .toy-preview h4 {
@@ -10,6 +19,26 @@
     color: black;
 }
 
-.toy-preview img {
-    max-width: 100px;
+.toy-preview .btn-remove {
+    position: absolute;
+    top: -0.5rem;
+    left: -0.5rem;
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+.toy-preview .btn-edit {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+.toy-preview p {
+    margin: 0;
+}
+
+.toy-preview span {
+    color: #19199e;
 }
