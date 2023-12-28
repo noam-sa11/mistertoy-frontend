@@ -11,23 +11,46 @@ export function LoginSignup({ onSetUser }) {
 
     const [isSignup, setIsSignUp] = useState(false)
 
-    function onLogin(credentials) {
-        isSignup ? _signup(credentials) : _login(credentials)
+    async function onLogin(credentials) {
+        try {
+            if (isSignup) {
+                await _signup(credentials)
+            } else {
+                await _login(credentials)
+            }
+        } catch (err) {
+            showErrorMsgRedux('Oops, try again')
+        }
     }
 
-    function _login(credentials) {
-        login(credentials)
-            .then(onSetUser)
-            .then(() => { showSuccessMsgRedux('Logged in successfully') })
-            .catch((err) => { showErrorMsgRedux('Oops try again') })
+    async function _login(credentials) {
+        await login(credentials)
+        onSetUser()
+        showSuccessMsgRedux('Logged in successfully')
     }
 
-    function _signup(credentials) {
-        signup(credentials)
-            .then(onSetUser)
-            .then(() => { showSuccessMsgRedux('Signed in successfully') })
-            .catch((err) => { showErrorMsgRedux('Oops try again') })
+    async function _signup(credentials) {
+        await signup(credentials)
+        onSetUser()
+        showSuccessMsgRedux('Signed up successfully')
     }
+    // function onLogin(credentials) {
+    //     isSignup ? _signup(credentials) : _login(credentials)
+    // }
+
+    // function _login(credentials) {
+    //     login(credentials)
+    //         .then(onSetUser)
+    //         .then(() => { showSuccessMsgRedux('Logged in successfully') })
+    //         .catch((err) => { showErrorMsgRedux('Oops try again') })
+    // }
+
+    // function _signup(credentials) {
+    //     signup(credentials)
+    //         .then(onSetUser)
+    //         .then(() => { showSuccessMsgRedux('Signed in successfully') })
+    //         .catch((err) => { showErrorMsgRedux('Oops try again') })
+    // }
 
     return (
         <div className="login-page">
