@@ -1,51 +1,66 @@
-import { useState } from "react"
-import { userService } from "../services/user.service.js"
+import React from 'react';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import { Button, TextField } from '@mui/material';
+import { userService } from '../services/user.service.js';
 
-// const { useState } = React
+const LoginSchema = Yup.object().shape({
+    username: Yup.string().required('Username is required'),
+    password: Yup.string().required('Password is required'),
+});
 
 export function LoginForm({ onLogin, isSignup }) {
-
-    const [credentials, setCredentials] = useState(userService.getEmptyCredentials())
-
-    function handleChange({ target }) {
-        const { name: field, value } = target
-        setCredentials(prevCreds => ({ ...prevCreds, [field]: value }))
-    }
-
-    function handleSubmit(ev) {
-        ev.preventDefault()
-        onLogin(credentials)
-    }
+    const formikProps = {
+        initialValues: userService.getEmptyCredentials(),
+        validationSchema: LoginSchema,
+        onSubmit: onLogin,
+    };
 
     return (
-        <form className="login-form" onSubmit={handleSubmit}>
-            <input
-                type="text"
-                name="username"
-                value={credentials.username}
-                placeholder="Username"
-                onChange={handleChange}
-                required
-                autoFocus
-            />
-            <input
-                type="password"
-                name="password"
-                value={credentials.password}
-                placeholder="Password"
-                onChange={handleChange}
-                required
-                autoComplete="off"
-            />
-            {isSignup && <input
-                type="text"
-                name="fullname"
-                value={credentials.fullname}
-                placeholder="Full name"
-                onChange={handleChange}
-                required
-            />}
-            <button>{isSignup ? 'Signup' : 'Login'}</button>
-        </form>
-    )
+        <Formik {...formikProps}>
+            {({ errors, touched }) => (
+                <Form className="login-form">
+
+                    <Field
+                        as={TextField}
+                        name="username"
+                        label="Username"
+                        required
+                        autoFocus
+                    />
+                    {errors.username && touched.username && (
+                        <div className="error-message">{errors.username}</div>
+                    )}
+
+                    <Field
+                        as={TextField}
+                        type="password"
+                        name="password"
+                        label="Password"
+                        required
+                        autoComplete="off"
+                    />
+                    {errors.password && touched.password && (
+                        <div className="error-message">{errors.password}</div>
+                    )}
+
+                    {isSignup && (
+                        <Field
+                            as={TextField}
+                            name="fullname"
+                            label="Full name"
+                            required
+                        />
+                    )}
+                    {isSignup && errors.fullname && touched.fullname && (
+                        <div className="error-message">{errors.fullname}</div>
+                    )}
+
+                    <Button type="submit" variant="contained">
+                        {isSignup ? 'Signup' : 'Login'}
+                    </Button>
+                </Form>
+            )}
+        </Formik>
+    );
 }

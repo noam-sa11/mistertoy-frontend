@@ -25,16 +25,6 @@ export function AppHeader() {
             showErrorMsgRedux('Oops, try again')
         }
     }
-    // function onLogout() {
-    //     userService.logout()
-    //         .then(() => {
-    //             onSetUser(null)
-    //             showSuccessMsgRedux('Logged out successfully')
-    //         })
-    //         .catch((err) => {
-    //             showErrorMsgRedux('OOPs try again')
-    //         })
-    // }
 
     function onSetUser(user) {
         dispatch({ type: SET_USER, user })
@@ -55,17 +45,17 @@ export function AppHeader() {
                 <NavLink to="/about" >About</NavLink>
                 {/* <a onClick={onToggleCart} href="#">🛒 Cart</a> */}
             </nav>
-            {/* {user ? (
-                < section >
+            {user ? (
+                < section className="login-section">
                     <span to={`/user/${user._id}`}>Hello {user.fullname}</span>
                     <button onClick={onLogout}>Logout</button>
                 </ section >
             ) : (
-                <section>
+                <section className="login-section">
                     <LoginSignup onSetUser={onSetUser} />
                 </section>
             )}
-            <UserMsg /> */}
+            <UserMsg />
         </header>
     )
 }
