@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom"
 
 export function ToyPreview({ toy, onRemoveToy }) {
-
     return (
         <article>
             <Link to={`/toy/${toy._id}`} className="flex justify-center align-center">

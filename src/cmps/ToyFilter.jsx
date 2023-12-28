@@ -13,14 +13,18 @@ export function ToyFilter({ filterBy, onSetFilter }) {
     onSetFilter = useRef(utilService.debounce(onSetFilter))
 
     useEffect(() => {
-        loadToys()
-            .then(() => {
-                showSuccessMsgRedux('Toys loaded successfully')
-            })
-            .catch(() => {
-                showErrorMsgRedux('Cannot show toys')
-            })
+        loadData()
     }, [])
+
+    async function loadData() {
+        try {
+            await loadToys()
+            showSuccessMsgRedux('Toys loaded successfully')
+        } catch (error) {
+            console.error('Error loading toys:', error)
+            showErrorMsgRedux('Cannot show toys')
+        }
+    }
 
     function getLabels() {
         const labelsSet = new Set()
