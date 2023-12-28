@@ -16,16 +16,25 @@ export function AppHeader() {
     const user = useSelector(storeState => storeState.userModule.loggedinUser)
     const isCartShown = useSelector(storeState => storeState.toyModule.isCartShown)
 
-    function onLogout() {
-        userService.logout()
-            .then(() => {
-                onSetUser(null)
-                showSuccessMsgRedux('Logged out successfully')
-            })
-            .catch((err) => {
-                showErrorMsgRedux('OOPs try again')
-            })
+    async function onLogout() {
+        try {
+            await userService.logout()
+            onSetUser(null)
+            showSuccessMsgRedux('Logged out successfully')
+        } catch (err) {
+            showErrorMsgRedux('Oops, try again')
+        }
     }
+    // function onLogout() {
+    //     userService.logout()
+    //         .then(() => {
+    //             onSetUser(null)
+    //             showSuccessMsgRedux('Logged out successfully')
+    //         })
+    //         .catch((err) => {
+    //             showErrorMsgRedux('OOPs try again')
+    //         })
+    // }
 
     function onSetUser(user) {
         dispatch({ type: SET_USER, user })
