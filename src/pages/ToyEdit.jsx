@@ -61,12 +61,11 @@ export function ToyEdit() {
 
     }
 
-    const labelOptions = toyService.getLabels()
-    console.log('toyToEdit:', toyToEdit)
+    // const labelOptions = toyService.getLabels()
+    // console.log('toyToEdit:', toyToEdit)
     return (
         <section className="toy-edit">
             <h2>{toyToEdit._id ? 'Edit' : 'Add'} Toy</h2>
-            con
             <form onSubmit={onSaveToy}>
                 <label htmlFor="txt">Toy Name:</label>
                 <input
