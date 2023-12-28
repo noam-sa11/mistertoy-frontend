@@ -6,7 +6,7 @@ export function ToyPreview({ toy, onRemoveToy }) {
         <article>
             <Link to={`/toy/${toy._id}`} className="flex justify-center align-center">
                 <div className="img-container flex justify-center align-center">
-                    <img src="./public/teddy.png" alt="" />
+                    <img src="/teddy.png" alt="" />
                 </div>
             </Link>
             <h4>{toy.name}</h4>
