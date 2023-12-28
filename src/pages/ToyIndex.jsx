@@ -16,25 +16,47 @@ export function ToyIndex() {
     const filterBy = useSelector(storeState => storeState.toyModule.filterBy)
 
     useEffect(() => {
-        loadToys()
-            .then(() => {
-                showSuccessMsgRedux('Toys loaded successfully')
-            })
-            .catch(() => {
-                showErrorMsgRedux('Cannot show toys')
-            })
+        loadData()
     }, [filterBy])
 
-    function onRemoveToy(toyId) {
-        removeToyOptimistic(toyId)
-            .then(() => {
-                showSuccessMsgRedux('Toy removed successfully')
-            })
-            .catch(err => {
-                console.log('Cannot remove toy', err)
-                showErrorMsgRedux('Cannot remove toy')
-            })
+    async function loadData() {
+        try {
+            await loadToys()
+            showSuccessMsgRedux('Toys loaded successfully')
+        } catch (error) {
+            console.error('Error loading toys:', error)
+            showErrorMsgRedux('Cannot show toys')
+        }
     }
+    // useEffect(() => {
+    //     loadToys()
+    //         .then(() => {
+    //             showSuccessMsgRedux('Toys loaded successfully')
+    //         })
+    //         .catch(() => {
+    //             showErrorMsgRedux('Cannot show toys')
+    //         })
+    // }, [filterBy])
+
+    async function onRemoveToy(toyId) {
+        try {
+            await removeToyOptimistic(toyId)
+            showSuccessMsgRedux('Toy removed successfully')
+        } catch (error) {
+            console.error('Error removing toy:', error)
+            showErrorMsgRedux('Cannot remove toy')
+        }
+    }
+    // function onRemoveToy(toyId) {
+    //     removeToyOptimistic(toyId)
+    //         .then(() => {
+    //             showSuccessMsgRedux('Toy removed successfully')
+    //         })
+    //         .catch(err => {
+    //             console.log('Cannot remove toy', err)
+    //             showErrorMsgRedux('Cannot remove toy')
+    //         })
+    // }
 
     // function onAddToy() {
     //     const toyToSave = toyService.getEmptyToy()
