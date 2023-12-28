@@ -17,18 +17,22 @@ export function Dashboard() {
     const [lineChartData, setLineChartData] = useState(null)
 
     useEffect(() => {
-        loadToys()
-            .then(() => {
-                showSuccessMsgRedux('Toys loaded successfully')
-            })
-            .catch(() => {
-                showErrorMsgRedux('Cannot show toys')
-            })
+        loadData()
     }, [])
 
     useEffect(() => {
         generateChartsData(toys)
     }, [toys])
+
+    async function loadData() {
+        try {
+            await loadToys()
+            showSuccessMsgRedux('Toys loaded successfully')
+        } catch (error) {
+            console.error('Error loading toys:', error)
+            showErrorMsgRedux('Cannot show toys')
+        }
+    }
 
     function generateChartsData(toysData) {
         if (!toysData || !toysData.length) {
