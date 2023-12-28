@@ -13,15 +13,25 @@ export function ToyDetails() {
         loadToy()
     }, [toyId])
 
-    function loadToy() {
-        toyService.getToyById(toyId)
-            .then((toy) => setToy(toy))
-            .catch((err) => {
-                console.log('Had issues in toy details', err)
-                showErrorMsgRedux('Cannot load toy')
-                navigate('/toy')
-            })
+    async function loadToy() {
+        try {
+            const loadedToy = await toyService.getToyById(toyId)
+            setToy(loadedToy)
+        } catch (err) {
+            console.log('Had issues in toy details', err)
+            showErrorMsgRedux('Cannot load toy')
+            navigate('/toy')
+        }
     }
+    // function loadToy() {
+    //     toyService.getToyById(toyId)
+    //         .then((toy) => setToy(toy))
+    //         .catch((err) => {
+    //             console.log('Had issues in toy details', err)
+    //             showErrorMsgRedux('Cannot load toy')
+    //             navigate('/toy')
+    //         })
+    // }
 
     if (!toy) return <div>Loading...</div>
     return (
