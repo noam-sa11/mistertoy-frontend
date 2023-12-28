@@ -18,14 +18,15 @@ export function ToyEdit() {
         if (toyId) _loadToy()
     }, [])
 
-    function _loadToy() {
-        loadToy(toyId)
-            .then(toy => setToyToEdit(toy))
-            .catch((err) => {
-                console.log('Had issued in toy edit:', err)
-                navigate('/toy')
-                showErrorMsgRedux('Toy not found!')
-            })
+    async function _loadToy() {
+        try {
+            const loadedToy = await loadToy(toyId)
+            setToyToEdit(loadedToy)
+        } catch (err) {
+            console.error('Error loading toy:', err)
+            navigate('/toy')
+            showErrorMsgRedux('Toy not found!')
+        }
     }
 
     function handleChange({ target }) {
@@ -34,32 +35,53 @@ export function ToyEdit() {
         setToyToEdit((prevToy) => ({ ...prevToy, [field]: value }))
     }
 
-    function onSaveToy(ev) {
+    async function onSaveToy(ev) {
         ev.preventDefault()
         const schema = yup.object().shape({
             name: yup.string().required('Toy Name is required'),
             price: yup.number().required('Toy Price is required').positive('Price must be positive'),
         })
-        schema.validate(toyToEdit, { abortEarly: false })
-            .then(() => {
-                console.log('toyToEdit:', toyToEdit)
-                saveToy(toyToEdit)
-                    .then((savedToy) => {
-                        console.log('savedToy:', savedToy)
-                        showSuccessMsgRedux('Toy has been saved!')
-                        navigate('/toy')
-                    })
-                    .catch((err) => {
-                        console.log('Cannot add toy', err)
-                        showErrorMsgRedux('Cannot add toy')
-                    })
-            })
-            .catch((validationErrors) => {
-                showErrorMsgRedux('Validations errors')
-                console.error(validationErrors)
-            })
-
+        try {
+            await schema.validate(toyToEdit, { abortEarly: false })
+            try {
+                const savedToy = await saveToy(toyToEdit)
+                showSuccessMsgRedux('Toy has been saved!')
+                navigate('/toy')
+            } catch (err) {
+                console.error('Cannot add/edit toy', err)
+                showErrorMsgRedux('Cannot add/edit toy')
+            }
+        } catch (validationErrors) {
+            console.error(validationErrors)
+            showErrorMsgRedux('Validation errors')
+        }
     }
+    // async function onSaveToy(ev) {
+    //     ev.preventDefault()
+    //     const schema = yup.object().shape({
+    //         name: yup.string().required('Toy Name is required'),
+    //         price: yup.number().required('Toy Price is required').positive('Price must be positive'),
+    //     })
+    //     schema.validate(toyToEdit, { abortEarly: false })
+    //         .then(() => {
+    //             console.log('toyToEdit:', toyToEdit)
+    //             saveToy(toyToEdit)
+    //                 .then((savedToy) => {
+    //                     console.log('savedToy:', savedToy)
+    //                     showSuccessMsgRedux('Toy has been saved!')
+    //                     navigate('/toy')
+    //                 })
+    //                 .catch((err) => {
+    //                     console.log('Cannot add toy', err)
+    //                     showErrorMsgRedux('Cannot add toy')
+    //                 })
+    //         })
+    //         .catch((validationErrors) => {
+    //             showErrorMsgRedux('Validations errors')
+    //             console.error(validationErrors)
+    //         })
+
+    // }
 
     // const labelOptions = toyService.getLabels()
     // console.log('toyToEdit:', toyToEdit)
