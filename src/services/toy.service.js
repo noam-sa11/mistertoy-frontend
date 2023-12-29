@@ -11,12 +11,11 @@ export const toyService = {
     save,
     removeToy,
     getToyById,
+    addReview,
     debounce,
     getDefaultFilter,
     getEmptyToy,
 }
-
-// const labels = ["On wheels", "Box game", "Art", "Baby", "Doll", "Puzzle", "Outdoor", "Battery Powered"]
 
 async function query(filterBy = {}) {
     try {
@@ -26,9 +25,6 @@ async function query(filterBy = {}) {
         throw error
     }
 }
-// function query(filterBy = {}) {
-//     return httpService.get(BASE_URL, filterBy)
-// }
 
 async function getToyById(toyId) {
     try {
@@ -38,9 +34,6 @@ async function getToyById(toyId) {
         throw error
     }
 }
-// function getToyById(toyId) {
-//     return httpService.get(BASE_URL + toyId)
-// }
 
 async function save(toy) {
     try {
@@ -55,14 +48,6 @@ async function save(toy) {
         throw error
     }
 }
-// function save(toy) {
-//     if (toy._id) {
-//         return httpService.put(BASE_URL + toy._id, toy)
-//     } else {
-//         toy.createdAt = Date.now()
-//         return httpService.post(BASE_URL, toy)
-//     }
-// }
 
 async function removeToy(toyId) {
     try {
@@ -72,9 +57,18 @@ async function removeToy(toyId) {
         throw error
     }
 }
-// function removeToy(toyId) {
-//     return httpService.delete(BASE_URL + toyId)
-// }
+
+async function addReview(toyId, reviewText) {
+    try {
+        // const txt = {
+        //     txt: reviewText,
+        // }
+        return await httpService.post(BASE_URL + toyId + '/msg', reviewText);
+    } catch (error) {
+        console.error('Error adding review:', error);
+        throw error;
+    }
+}
 
 function getDefaultFilter() {
     return { name: '', maxPrice: '', inStock: 'all', labels: [] }
