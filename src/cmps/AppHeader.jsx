@@ -28,7 +28,7 @@ export function AppHeader() {
 
     function onSetUser(user) {
         dispatch({ type: SET_USER, user })
-        navigate('/')
+        navigate('/toy')
     }
 
     function onToggleCart(ev) {

@@ -1,8 +1,8 @@
 import { storageService } from './async-storage.service.js'
 import { httpService } from './http.service.js'
 
-const BASE_URL = '/api/auth/'
-// const BASE_URL = 'auth/'
+// const BASE_URL = '/api/auth/'
+const BASE_URL = 'auth/'
 const STORAGE_KEY_LOGGEDIN = 'loggedinUser'
 const STORAGE_KEY = 'userDB'
 
@@ -65,9 +65,9 @@ async function login({ username, password }) {
 // }
 
 async function signup({ username, password, fullname }) {
-    const user = { username, password, fullname }
+    const newUser = { username, password, fullname }
     try {
-        const user = await httpService.post(BASE_URL + 'signup', user)
+        const user = await httpService.post(BASE_URL + 'signup', newUser)
         // const user = await storageService.post(BASE_URL + 'signup', user)
 
         if (user) return _setLoggedinUser(user)

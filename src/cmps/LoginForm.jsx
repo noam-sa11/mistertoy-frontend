@@ -7,7 +7,7 @@ import { userService } from '../services/user.service.js';
 const LoginSchema = Yup.object().shape({
     username: Yup.string().required('Username is required'),
     password: Yup.string().required('Password is required'),
-});
+})
 
 export function LoginForm({ onLogin, isSignup }) {
     const formikProps = {
