@@ -4,10 +4,14 @@ import { showSuccessMsgRedux, showErrorMsgRedux } from '../store/actions/app.act
 import { userService } from '../services/user.service.js'
 import { login, signup } from '../store/actions/user.actions.js'
 import { LoginForm } from './LoginForm.jsx'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 // const { useState } = React
 
 export function LoginSignup({ onSetUser }) {
+    const user = useSelector(storeState => storeState.userModule.loggedinUser)
+    const navigate = useNavigate()
 
     const [isSignup, setIsSignUp] = useState(false)
 
@@ -27,12 +31,14 @@ export function LoginSignup({ onSetUser }) {
         await login(credentials)
         onSetUser()
         showSuccessMsgRedux('Logged in successfully')
+        navigate('/toy')
     }
 
     async function _signup(credentials) {
         await signup(credentials)
         onSetUser()
         showSuccessMsgRedux('Signed up successfully')
+        navigate('/toy')
     }
     // function onLogin(credentials) {
     //     isSignup ? _signup(credentials) : _login(credentials)

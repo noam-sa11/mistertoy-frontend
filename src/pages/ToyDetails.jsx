@@ -23,25 +23,18 @@ export function ToyDetails() {
             navigate('/toy')
         }
     }
-    // function loadToy() {
-    //     toyService.getToyById(toyId)
-    //         .then((toy) => setToy(toy))
-    //         .catch((err) => {
-    //             console.log('Had issues in toy details', err)
-    //             showErrorMsgRedux('Cannot load toy')
-    //             navigate('/toy')
-    //         })
-    // }
 
     if (!toy) return <div>Loading...</div>
     return (
         <section className="toy-details">
-            <h1>Toy Name : {toy.name}</h1>
-            <h2>Price: ${toy.price}</h2>
+            <div className="img-container flex justify-center align-center">
+                <img src="/teddy.png" alt="" />
+            </div>
+            <h1>Toy Name: {toy.name}</h1>
+            <h2>Price: <span className="price">${toy.price}</span></h2>
             <h2>labels: <span>{toy.labels.join(' | ')}</span></h2>
-            <h2>Created at: <span>{toy.createdAt}</span></h2>
             <h3>In Stock: <span>{(toy.inStock) ? 'yes' : 'no'}</span></h3>
-            <p>⛐</p>
+            <br />
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi voluptas cumque tempore, aperiam sed dolorum rem! Nemo quidem, placeat perferendis tempora aspernatur sit, explicabo veritatis corrupti perspiciatis repellat, enim quibusdam!</p>
         </section>
     )

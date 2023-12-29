@@ -1,25 +1,21 @@
 import { useDispatch, useSelector } from "react-redux"
+import { LoginSignup } from "../cmps/LoginSignup"
+import { SET_USER } from "../store/reducers/user.reducer"
+import { useNavigate } from "react-router-dom"
 
 export function HomePage() {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     const count = useSelector(storeState => storeState.userModule.count)
 
-    function changeCount(diff) {
-        console.log('Changing count by:', diff)
-        dispatch({ type: 'CHANGE_BY', diff })
+    function onSetUser(user) {
+        dispatch({ type: SET_USER, user })
+        navigate('/')
     }
-
     return (
-        <section>
-            <h2>
-                Count {count}
-                <button onClick={() => {
-                    changeCount(1)
-                }}>+</button>
-                <button onClick={() => {
-                    changeCount(10)
-                }}>+10</button>
-            </h2 >
-        </section >
+        <section className="login-section">
+            <LoginSignup onSetUser={onSetUser} />
+        </section>
     )
 }

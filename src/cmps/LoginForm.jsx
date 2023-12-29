@@ -56,7 +56,7 @@ export function LoginForm({ onLogin, isSignup }) {
                         <div className="error-message">{errors.fullname}</div>
                     )}
 
-                    <Button type="submit" variant="contained">
+                    <Button type="submit" variant="contained" >
                         {isSignup ? 'Signup' : 'Login'}
                     </Button>
                 </Form>
