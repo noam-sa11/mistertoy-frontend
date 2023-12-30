@@ -13,11 +13,11 @@ export function ToyPreview({ toy, onRemoveToy }) {
             <h4>{toy.name}</h4>
             {user && user.isAdmin &&
                 <div>
-                    <button className="btn-remove" onClick={() => {
+                    <button className="btn btn-remove" onClick={() => {
                         onRemoveToy(toy._id)
                     }}>x</button>
                     <Link to={`/toy/edit/${toy._id}`}>
-                        <button className="btn-edit">Edit</button>
+                        <button className="btn btn-edit">Edit</button>
                     </Link>
                 </div>
             }

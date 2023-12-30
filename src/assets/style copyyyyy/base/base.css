@@ -31,6 +31,10 @@ a {
   color: unset;
 }
 
+/* .app>* {
+  background-color: var(--clr1);
+} */
+
 
 /* Dont stretch my Media */
 img,

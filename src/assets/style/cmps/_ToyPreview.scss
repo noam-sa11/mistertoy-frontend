@@ -1,0 +1,44 @@
+@import '../setup/vars';
+
+.toy-preview {
+    position: relative;
+    text-align: center;
+    padding: 1rem;
+    flex-direction: column;
+    border-radius: 1rem;
+    transition: background-color 0.3s;
+
+    h4 {
+        text-transform: capitalize;
+        color: $gray3;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    span {
+        color: $clr-price;
+    }
+
+    .img-container {
+        height: rem(150px);
+        width: rem(150px);
+        border-radius: 50%;
+    }
+
+    .btn {
+        position: absolute;
+        top: -0.5rem;
+        border-radius: 10px;
+        background-color: transparent;
+
+        &.btn-remove {
+            left: -0.5rem;
+        }
+
+        &.btn-edit {
+            right: -0.5rem;
+        }
+    }
+}

@@ -1,0 +1,58 @@
+@import '../setup/vars';
+
+.app-header {
+  grid-column: 1 / -1;
+  background-color: $clr1;
+  color: $clr1bg;
+  padding: 1em 0;
+  font-size: .8rem;
+
+  .app-nav {
+    justify-self: center;
+    grid-column: 2;
+    padding-block: 0.6rem;
+    display: flex;
+    gap: 15px;
+    margin-inline-end: 1.3rem;
+
+    a.active {
+      color: $gray3;
+    }
+  }
+
+  .login-section {
+    margin-inline-end: rem(3px);
+    grid-column: 2;
+    justify-self: end;
+  }
+
+  .login-form {
+    position: absolute;
+    display: grid;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $clr1bg;
+    padding: 50px;
+  }
+
+  @media (min-width: 500px) {
+    .app-nav {
+      justify-self: end;
+    }
+  }
+
+  @media (min-width: 800px) {
+    .app-nav {
+      justify-self: start;
+      margin-inline-start: rem(350px);
+      margin-inline-end: 0;
+      grid-column: 1;
+    }
+
+    .login-section {
+      grid-column: 2;
+    }
+  }
+}

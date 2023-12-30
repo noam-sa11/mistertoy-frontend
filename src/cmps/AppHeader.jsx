@@ -6,6 +6,7 @@ import { UserMsg } from './UserMsg.jsx'
 import { showSuccessMsgRedux, showErrorMsgRedux } from '../store/actions/app.actions.js'
 
 import { SET_USER } from '../store/reducers/user.reducer.js'
+import { useEffect } from 'react'
 // import { SET_CART_IS_SHOWN } from '../store/reducers/toy.reducer.js'
 
 export function AppHeader() {
@@ -14,6 +15,10 @@ export function AppHeader() {
 
     const user = useSelector(storeState => storeState.userModule.loggedinUser)
     // const isCartShown = useSelector(storeState => storeState.toyModule.isCartShown)
+
+    useEffect(() => {
+
+    }, user)
 
     async function onLogout() {
         try {

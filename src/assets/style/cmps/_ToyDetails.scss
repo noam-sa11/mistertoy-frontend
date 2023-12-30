@@ -1,0 +1,121 @@
+@import '../setup/vars';
+
+.toy-details {
+    max-width: 600px;
+    margin: 1rem auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: $clr1;
+
+    img {
+        width: 75%;
+    }
+
+    h1 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        font-size: 1.2em;
+        margin-bottom: 8px;
+    }
+
+    h3 {
+        font-size: 1.1em;
+        margin-bottom: 8px;
+    }
+
+    span {
+        font-weight: bold;
+        color: $clr2;
+        /* Blue color for labels and details */
+    }
+
+    p {
+        margin-top: 20px;
+        font-size: 1em;
+        line-height: 1.4;
+    }
+
+    .price {
+        color: $clr-price;
+    }
+
+    .review-form {
+        margin-top: 20px;
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: $clr-price;
+            color: $clr-1;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+    }
+
+    .reviews-section {
+        margin-top: 20px;
+
+        p {
+            margin-block-start: 0;
+        }
+
+        .review-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: $clr-1;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+            .review-text {
+                font-size: 1em;
+                margin-bottom: 10px;
+            }
+
+            .review-by {
+                margin-block-end: 0;
+                font-size: 0.9em;
+                color: $clr1bg;
+            }
+        }
+    }
+}
+
+// .review-rating {
+//     display: flex;
+//     align-items: center;
+//     margin-bottom: 10px;
+// }
+
+// .star {
+//     color: #ff9900;
+// }
+
+/* Add this class to show verified purchase badge */
+// .verified-badge {
+//     background-color: #e8f4ff;
+//     color: #0070c9;
+//     padding: 5px 10px;
+//     border-radius: 5px;
+//     font-size: 0.8em;
+//     margin-left: 10px;
+// }
+
+/* ... existing styles ... */
+
+// .loading-message {
+//     text-align: center;
+//     font-size: 1.2em;
+//     color: #888;
+//     margin-top: 20px;
+// }

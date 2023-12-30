@@ -1,3 +1,5 @@
+@import '../setup/vars';
+
 .toy-list {
     list-style: none;
     display: grid;
@@ -13,7 +15,7 @@
     align-self: start;
     justify-content: space-around;
     margin: 0.5em;
-    background-color: var(--clr1bg-light)
+    background-color: $clr2bg;
 }
 
 .toy-list li:hover {

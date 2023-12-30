@@ -1,0 +1,99 @@
+@import '../setup/vars';
+
+.toy-filter {
+    background-color: $clr2bg;
+    margin-block-start: -102px;
+    padding: 0.5rem;
+    padding-block: 73px;
+    /* padding-block-start: 1rem; */
+
+    form {
+        display: grid;
+        align-self: start;
+
+        label {
+            margin-block-start: 1.5rem;
+            margin-block-end: .5rem;
+            justify-self: start;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+    }
+
+    #name {
+        position: fixed;
+        top: .7rem;
+        padding: 11.2px 20px;
+        border-radius: 2rem;
+        border: none;
+        z-index: 10;
+    }
+
+    input,
+    select {
+        /* align-self: center; */
+        padding: 0.7rem 1rem;
+        border-radius: 2rem;
+        border: none;
+        background-color: #e3e3e3;
+    }
+
+    input:first-of-type {
+        padding-inline-end: 100px;
+    }
+
+    a {
+        align-self: center;
+    }
+
+    .filter-categories {
+        display: grid;
+        place-items: center;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .btn-label {
+        background-color: $clr-btn-filter;
+        width: 70px;
+        height: 70px;
+        text-align: center;
+        color: $clr1bg;
+
+        &:hover {
+            background-color: darken($clr-btn-filter, 10%);
+        }
+
+        &.active {
+            background-color: darken($clr-btn-filter, 10%);
+            color: black;
+        }
+    }
+
+    @media (max-width: 500px) {
+        margin-block-start: -45px;
+
+        #name {
+            top: 4.3rem;
+        }
+    }
+
+    @media (min-width: 650px) {
+
+        #name {
+            width: rem(300px);
+        }
+    }
+
+    @media (min-width: 800px) {
+        padding: 1.5rem;
+        padding-block-start: 85px;
+
+        form {
+            padding-block-start: 1.55rem;
+        }
+
+        #name {
+            padding: 11.2px 16px;
+        }
+    }
+}
