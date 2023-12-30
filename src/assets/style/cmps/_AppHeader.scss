@@ -26,17 +26,6 @@
     justify-self: end;
   }
 
-  .login-form {
-    position: absolute;
-    display: grid;
-    z-index: 10;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: $clr1bg;
-    padding: 50px;
-  }
-
   @media (min-width: 500px) {
     .app-nav {
       justify-self: end;

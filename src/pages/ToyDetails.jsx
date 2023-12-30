@@ -9,7 +9,7 @@ export function ToyDetails() {
     const user = useSelector(storeState => storeState.userModule.loggedinUser)
 
     const [toy, setToy] = useState(null)
-    const [reviewText, setReviewText] = useState('')
+    const [msgTxt, setMsgTxt] = useState('')
 
     const { toyId } = useParams()
     const navigate = useNavigate()
@@ -30,24 +30,24 @@ export function ToyDetails() {
         }
     }
 
-    const handleReviewSubmit = async (ev) => {
+    const handleMsgSubmit = async (ev) => {
         ev.preventDefault()
 
         if (!user) {
-            showErrorMsgRedux('Please log in to submit a review.')
+            showErrorMsgRedux('Please log in to submit a msg.')
             return
         }
 
         try {
-            const updatedToy = await toyService.addReview(toyId, { txt: reviewText })
+            const updatedToy = await toyService.addMsg(toyId, { txt: msgTxt })
             setToy(updatedToy)
-            setReviewText('')
+            setMsgTxt('')
             loadToy()
 
-            showSuccessMsgRedux('Review added successfully')
+            showSuccessMsgRedux('msg added successfully')
         } catch (error) {
-            console.error('Error adding review:', error)
-            showErrorMsgRedux('Error adding review. Please try again.')
+            console.error('Error adding msg:', error)
+            showErrorMsgRedux('Error adding msg. Please try again.')
         }
     }
 
@@ -56,6 +56,8 @@ export function ToyDetails() {
         <section className="toy-details">
             <div className="img-container flex justify-center align-center">
                 <img src="/teddy.png" alt="" />
+                {/* <img src={`${toy.url}`} alt="" /> */}
+
             </div>
             <h1>Toy Name: {toy.name}</h1>
             <h2>Price: <span className="price">${toy.price}</span></h2>
@@ -65,34 +67,34 @@ export function ToyDetails() {
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi voluptas cumque tempore, aperiam sed dolorum rem! Nemo quidem, placeat perferendis tempora aspernatur sit, explicabo veritatis corrupti perspiciatis repellat, enim quibusdam!</p>
             <br />
 
-            {/* Review Form */}
+            {/* msg Form */}
             {user && (
-                <form onSubmit={handleReviewSubmit} className="review-form">
+                <form onSubmit={handleMsgSubmit} className="msg-form">
                     <label>
-                        Add a Review:
+                        Add a Message:
                         <textarea
-                            value={reviewText}
-                            onChange={(e) => setReviewText(e.target.value)}
+                            value={msgTxt}
+                            onChange={(ev) => setMsgTxt(ev.target.value)}
                         />
                     </label>
-                    <button type="submit">Submit Review</button>
+                    <button type="submit">Send Message</button>
                 </form>
             )}
 
             {toy.msgs && toy.msgs.length > 0 &&
-                <div className="reviews-section">
-                    <h3>Reviews:</h3>
-                    {toy.msgs.map((review) => (
-                        <div key={review.id} className="review-item">
-                            <p className="review-text">{review.txt}</p>
-                            <p className="review-by">By: {review.by.fullname}</p>
+                <div className="msgs-section">
+                    <h3>Message:</h3>
+                    {toy.msgs.map((msg) => (
+                        <div key={msg.id} className="msg-item">
+                            <p className="msg-text">{msg.txt}</p>
+                            <p className="msg-by">By: {msg.by.fullname}</p>
                         </div>
                     ))}
                 </div>
             }
             {!toy.msgs &&
                 <div>
-                    <h3>No Reviews</h3>
+                    <h3>No Message</h3>
                 </div>
             }
         </section>

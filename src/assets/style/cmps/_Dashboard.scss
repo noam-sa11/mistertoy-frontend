@@ -1,0 +1,18 @@
+@import '../setup/vars';
+
+.dashboard {
+    .toy-filter {
+        background-color: $clr1;
+
+        &>* {
+            display: none;
+        }
+    }
+
+    .charts {
+        display: grid;
+        justify-items: center;
+        align-content: space-evenly;
+        background-color: $clr2bg;
+    }
+}

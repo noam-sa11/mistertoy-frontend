@@ -16,10 +16,6 @@ export function AppHeader() {
     const user = useSelector(storeState => storeState.userModule.loggedinUser)
     // const isCartShown = useSelector(storeState => storeState.toyModule.isCartShown)
 
-    useEffect(() => {
-
-    }, user)
-
     async function onLogout() {
         try {
             await userService.logout()

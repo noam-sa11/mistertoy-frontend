@@ -26,7 +26,8 @@ footer {
   text-align: center;
 }
 
-.toy-index {
+.toy-index,
+.dashboard {
   grid-template-columns: rem(200px) 1fr;
 
   @media (min-width: 800px) {

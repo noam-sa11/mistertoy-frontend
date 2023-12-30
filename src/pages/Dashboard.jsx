@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Bar, Line } from 'react-chartjs-2'
 import { CategoryScale, LinearScale, BarElement, PointElement, LineElement, Chart as ChartJS } from 'chart.js'
+import { utilService } from '../services/util.service'
+import { showErrorMsgRedux, showSuccessMsgRedux } from '../store/actions/app.actions'
 
 import { useSelector } from 'react-redux'
 import { loadToys } from '../store/actions/toy.actions'
 
-import { utilService } from '../services/util.service'
-import { showErrorMsgRedux, showSuccessMsgRedux } from '../store/actions/app.actions'
+import { ToyFilter } from '../cmps/ToyFilter.jsx'
+
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, PointElement, LineElement)
 
@@ -114,9 +116,9 @@ export function Dashboard() {
         !inventoryChartData ||
         !lineChartData) return <div>Loading...</div>
     return (
-        <div>
-            <h2>Dashboard</h2>
-            <div>
+        <div className="dashboard grid">
+            <ToyFilter />
+            <div className="charts">
                 <div style={{ width: '50%' }}>
                     <Bar data={pricesChartData} />
                 </div>

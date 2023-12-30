@@ -11,7 +11,7 @@ export const toyService = {
     save,
     removeToy,
     getToyById,
-    addReview,
+    addMsg,
     debounce,
     getDefaultFilter,
     getEmptyToy,
@@ -38,7 +38,8 @@ async function getToyById(toyId) {
 async function save(toy) {
     try {
         if (toy._id) {
-            return await httpService.put(BASE_URL + toy._id, toy)
+            return await httpService.put(BASE_URL, toy)
+            // return await httpService.put(BASE_URL + toy._id, toy)
         } else {
             toy.createdAt = Date.now()
             return await httpService.post(BASE_URL, toy)
@@ -58,14 +59,11 @@ async function removeToy(toyId) {
     }
 }
 
-async function addReview(toyId, reviewText) {
+async function addMsg(toyId, msgTxt) {
     try {
-        // const txt = {
-        //     txt: reviewText,
-        // }
-        return await httpService.post(BASE_URL + toyId + '/msg', reviewText);
+        return await httpService.post(BASE_URL + toyId + '/msg', msgTxt);
     } catch (error) {
-        console.error('Error adding review:', error);
+        console.error('Error adding msg:', error);
         throw error;
     }
 }

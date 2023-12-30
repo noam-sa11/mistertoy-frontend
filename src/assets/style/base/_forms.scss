@@ -1,6 +1,8 @@
+@import '../setup/vars';
+
 button {
     cursor: pointer;
-    background-color: var(--clr2bg);
+    background-color: $clr2bg;
     margin: 0.5em;
     border: 0;
     padding: 0.5em 0.8em;
@@ -8,12 +10,23 @@ button {
 }
 
 button:hover {
-    background-color: var(--clr2);
-    color: white;
+    background-color: $clr2;
+    color: $clr-1;
     transition: .3s;
 }
 
 input:focus {
-    background-color: var(--clr1bg);
+    background-color: $clr1bg;
     transition: background-color 1s;
+}
+
+.login-form {
+    position: absolute;
+    display: grid;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $clr1;
+    padding: 50px;
 }
