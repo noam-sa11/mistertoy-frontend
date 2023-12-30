@@ -2,18 +2,18 @@ import { useEffect, useRef, useState } from "react"
 import { utilService } from "../services/util.service.js"
 import { useEffectUpdate } from "./customHooks/useEffectUpdate.js"
 import { Link } from 'react-router-dom'
-import { loadToys } from '../store/actions/toy.actions.js'
-import { useSelector } from 'react-redux'
+import { loadToys, getToysLabels } from '../store/actions/toy.actions.js'
 import { showErrorMsgRedux, showSuccessMsgRedux } from "../store/actions/app.actions.js"
 
 
 export function ToyFilter({ filterBy, onSetFilter }) {
-    const toys = useSelector(storeState => storeState.toyModule.toys)
+    const [labelsOpt, setLabelsOpt] = useState(null)
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
     onSetFilter = useRef(utilService.debounce(onSetFilter))
 
     useEffect(() => {
         loadData()
+        getLabels()
     }, [])
 
     async function loadData() {
@@ -26,16 +26,9 @@ export function ToyFilter({ filterBy, onSetFilter }) {
         }
     }
 
-    function getLabels() {
-        const labelsSet = new Set()
-
-        toys.forEach(toy => {
-            toy.labels.forEach(label => {
-                labelsSet.add(label)
-            })
-        })
-
-        return (Array.from(labelsSet))
+    async function getLabels() {
+        const labels = await getToysLabels()
+        setLabelsOpt(labels)
     }
 
     useEffectUpdate(() => {
@@ -47,8 +40,9 @@ export function ToyFilter({ filterBy, onSetFilter }) {
         value = type === 'number' ? +value : value
         setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
     }
-    const labelOptions = getLabels()
-    if (!labelOptions) return <div>Loading...</div>
+    // const labelOptions = getLabels()
+    // console.log('labelOptions:', labelOptions)
+    if (!labelsOpt) return <div>Loading...</div>
 
     return (
         <section className="toy-filter full main-layout">
@@ -96,7 +90,7 @@ export function ToyFilter({ filterBy, onSetFilter }) {
 
                 <label htmlFor="labels">Category</label>
                 <section className="filter-categories">
-                    {labelOptions.map((label) => (
+                    {labelsOpt.map((label) => (
                         <button
                             key={label}
                             className={`btn-label flex justify-center align-center ${filterByToEdit.labels && filterByToEdit.labels.includes(label) ? 'active' : ''}`}

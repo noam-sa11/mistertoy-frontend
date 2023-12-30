@@ -15,21 +15,6 @@ export async function loadToys() {
         store.dispatch({ type: SET_IS_LOADING, isLoading: false })
     }
 }
-// export function loadToys() {
-//     store.dispatch({ type: SET_IS_LOADING, isLoading: true })
-//     const filterBy = store.getState().toyModule.filterBy
-//     return toyService.query(filterBy)
-//         .then(toys => {
-//             store.dispatch({ type: SET_TOYS, toys })
-//         })
-//         .catch(err => {
-//             console.log('toy action -> Cannot load toys', err)
-//             throw err
-//         })
-//         .finally(() => {
-//             store.dispatch({ type: SET_IS_LOADING, isLoading: false })
-//         })
-// }
 
 export async function loadToy(toyId) {
     try {
@@ -39,14 +24,6 @@ export async function loadToy(toyId) {
         throw err
     }
 }
-// export function loadToy(toyId) {
-//     return toyService.getToyById(toyId)
-//         .then(toy => toy)
-//         .catch((err) => {
-//             console.log('err', err)
-//             throw err
-//         })
-// }
 
 export async function removeToyOptimistic(toyId) {
     try {
@@ -61,20 +38,6 @@ export async function removeToyOptimistic(toyId) {
         store.dispatch({ type: SET_IS_LOADING, isLoading: false })
     }
 }
-// export function removeToyOptimistic(toyId) {
-//     store.dispatch({ type: REMOVE_TOY, toyId })
-//     store.dispatch({ type: SET_IS_LOADING, isLoading: true })
-
-//     return toyService.removeToy(toyId)
-//         .catch(err => {
-//             store.dispatch({ type: TOY_UNDO })
-//             console.log('toy action -> Cannot remove toy', err)
-//             throw err
-//         })
-//         .finally(() => {
-//             store.dispatch({ type: SET_IS_LOADING, isLoading: false })
-//         })
-// }
 
 export async function removeToy(toyId) {
     try {
@@ -88,20 +51,6 @@ export async function removeToy(toyId) {
         store.dispatch({ type: SET_IS_LOADING, isLoading: false })
     }
 }
-// export function removeToy(toyId) {
-//     store.dispatch({ type: SET_IS_LOADING, isLoading: true })
-//     return toyService.remove(toyId)
-//         .then(() => {
-//             store.dispatch({ type: REMOVE_TOY, toyId })
-//         })
-//         .catch(err => {
-//             console.log('toy action -> Cannot remove toy', err)
-//             throw err
-//         })
-//         .finally(() => {
-//             store.dispatch({ type: SET_IS_LOADING, isLoading: false })
-//         })
-// }
 
 export async function saveToy(toy) {
     try {
@@ -114,19 +63,20 @@ export async function saveToy(toy) {
         throw err
     }
 }
-// export function saveToy(toy) {
-//     const type = toy._id ? UPDATE_TOY : ADD_TOY
-//     return toyService.save(toy)
-//         .then(toyToSave => {
-//             store.dispatch({ type, toy: toyToSave })
-//             return toyToSave
-//         })
-//         .catch(err => {
-//             console.log('toy action -> Cannot save toy', err)
-//             throw err
-//         })
-// }
+
+export async function getToysLabels() {
+    const toys = await toyService.query()
+    const labelsSet = new Set()
+
+    toys.forEach(toy => {
+        toy.labels.forEach(label => {
+            labelsSet.add(label)
+        })
+    })
+    return (Array.from(labelsSet))
+}
 
 export function setFilterBy(filterBy) {
     store.dispatch({ type: SET_FILTER_BY, filterBy })
 }
+
