@@ -83,7 +83,7 @@ export function ToyDetails() {
 
             {toy.msgs && toy.msgs.length > 0 &&
                 <div className="msgs-section">
-                    <h3>Message:</h3>
+                    <h3>Messages:</h3>
                     {toy.msgs.map((msg) => (
                         <div key={msg.id} className="msg-item">
                             <p className="msg-text">{msg.txt}</p>

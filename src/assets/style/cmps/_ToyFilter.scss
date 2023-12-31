@@ -60,11 +60,11 @@
         color: $clr1bg;
 
         &:hover {
-            background-color: darken($clr-btn-filter, 10%);
+            background-color: $clr1;
         }
 
         &.active {
-            background-color: darken($clr-btn-filter, 10%);
+            background-color: $clr1;
             color: black;
         }
     }
